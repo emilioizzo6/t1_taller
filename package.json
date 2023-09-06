@@ -1,0 +1,75 @@
+{
+  "name": "typescript-express-sequelize-template",
+  "version": "1.0.0",
+  "description": "Backend template made using NodeJS, ExpressJS, Sequelize technologies",
+  "main": "index.js",
+  "scripts": {
+    "test": "SET NODE_ENV=test&& jest",
+    "test:coverage": "SET NODE_ENV=test&& jest --coverage",
+    "tsc": "tsc",
+    "start": "tsc && node ./dist/index.js",
+    "serve:local": "SET NODE_ENV=local && ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "serve:development": "SET NODE_ENV=development && ts-node-dev --respawn --transpileOnly --env=development ./src/index.ts",
+    "serve:production": "SET NODE_ENV=production && ts-node-dev --respawn --transpileOnly --env=production ./src/index.ts",
+    "eslint": "eslint ./src/**/* ./tests/**/*",
+    "eslint:fix": "eslint ./src/**/* ./tests/**/* --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhmdtshref/typescript-express-sequelize-template.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run eslint:fix"
+    }
+  },
+  "keywords": [
+    "template",
+    "github",
+    "repo",
+    "repository",
+    "backend",
+    "Express",
+    "ExpressJS",
+    "Node",
+    "NodeJS",
+    "Sequelize"
+  ],
+  "author": "Mohamed Sharif",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mhmdtshref/typescript-express-sequelize-template/issues"
+  },
+  "homepage": "https://github.com/mhmdtshref/typescript-express-sequelize-template#readme",
+  "dependencies": {
+    "@hapi/boom": "^9.1.0",
+    "@types/jest": "^25.2.2",
+    "bluebird": "^3.7.2",
+    "dotenv-flow": "^3.1.0",
+    "express": "^4.17.1",
+    "pg": "^8.0.2",
+    "sequelize": "^5.21.6",
+    "validator": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.30",
+    "@types/dotenv-flow": "^3.0.0",
+    "@types/express": "^4.17.6",
+    "@types/lodash": "^4.14.149",
+    "@types/validator": "^13.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "ts-jest": "^25.5.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  }
+}
