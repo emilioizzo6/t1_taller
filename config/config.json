@@ -3,7 +3,8 @@
     "username": "t1taller",
     "password": "njGhyBT0841KSQoW7ysxL3IGLOJYDsQg",
     "database": "t1taller",
-    "host": "127.0.0.1",
+    "host": "dpg-cjtn8uhgdgss738dn20g-a",
+    "port": 5432,
     "dialect": "postgres"
   }
 }
