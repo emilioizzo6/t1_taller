@@ -23,15 +23,15 @@ module.exports = {
                             id: req.params.level_id
                         })
                         .then(level => {
-                            if (!level.users) {
-                                level.users = [];
+                            if (!level.dataValues.users) {
+                                level.dataValues.users = [];
                             }
                             res.status(200).send(level)
                         })
                     return;
                 }
-                if (!level.users) {
-                    level.users = [];
+                if (!level.dataValues.users) {
+                    level.dataValues.users = [];
                 }
                 return res.status(200).send(level);
             }
@@ -39,10 +39,6 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
     async call(req, res) {
-        // req body is a user
-        // req params is a level
-        // create user and level if they don't exist
-        // check if the user is already on the level
         if (!isValidLevel(req.params.level_id)) {
             return res.status(400).send({
                 error: `invalid level <${req.params.level_id}>`
@@ -62,8 +58,8 @@ module.exports = {
         const user = await User.findByPk(req.body.id);
         if (user) {
             if (user.level_id === req.params.level_id) {
-                if (!level.users) {
-                    level.users = [];
+                if (!level.dataValues.users) {
+                    level.dataValues.users = [];
                 }
                 return res.status(200).send(level);
             }
@@ -72,8 +68,8 @@ module.exports = {
                     level_id: req.params.level_id
                 })
                 const level = await Level.findWithUsers(req.params.level_id);
-                if (!level.users) {
-                    level.users = [];
+                if (!level.dataValues.users) {
+                    level.dataValues.users = [];
                 }
                 return res.status(200).send(level);
             }
@@ -85,8 +81,8 @@ module.exports = {
                 destination: req.body.destination,
                 level_id: req.params.level_id
             })
-            if (!level.users) {
-                level.users = [];
+            if (!level.dataValues.users) {
+                level.dataValues.users = [];
             }
             return res.status(200).send(level);
         }

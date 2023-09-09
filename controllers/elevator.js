@@ -26,8 +26,8 @@ module.exports = {
                 level: 1
             })
             .then(elevator => {
-                if (!elevator.users) {
-                    elevator.users = [];
+                if (!elevator.dataValues.users) {
+                    elevator.dataValues.users = [];
                 }
                 res.status(201).send(elevator)
             })
@@ -103,8 +103,8 @@ module.exports = {
                         level: req.body.level
                     })
                     .then(() => {
-                        if (!elevator.users) {
-                            elevator.users = [];
+                        if (!elevator.dataValues.users) {
+                            elevator.dataValues.users = [];
                         }
                         res.status(200).send(elevator)
                     })
@@ -136,8 +136,8 @@ module.exports = {
                         doors: req.body.doors
                     })
                     .then(() => {
-                        if (!elevator.users) {
-                            elevator.users = [];
+                        if (!elevator.dataValues.users) {
+                            elevator.dataValues.users = [];
                         }
                         res.status(200).send(elevator)
                     })
@@ -195,8 +195,8 @@ module.exports = {
         await elevator.update({
             current_weight: elevator.current_weight + user.weight
         })
-        if (!elevator.users) {
-            elevator.users = [];
+        if (!elevator.dataValues.users) {
+            elevator.dataValues.users = [];
         }
         res.status(200).send(elevator);
     },
@@ -244,8 +244,8 @@ module.exports = {
                                 elevator_id: null
                             })
                             .then(() => {
-                                if (!elevator.users) {
-                                    elevator.users = [];
+                                if (!elevator.dataValues.users) {
+                                    elevator.dataValues.users = [];
                                 }
                                 res.status(200).send(elevator)
                             }
