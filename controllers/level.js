@@ -22,8 +22,16 @@ module.exports = {
                         .create({
                             id: req.params.level_id
                         })
-                        .then(level => res.status(200).send(level))
+                        .then(level => {
+                            if (!level.users) {
+                                level.users = [];
+                            }
+                            res.status(200).send(level)
+                        })
                     return;
+                }
+                if (!level.users) {
+                    level.users = [];
                 }
                 return res.status(200).send(level);
             }
@@ -54,6 +62,9 @@ module.exports = {
         const user = await User.findByPk(req.body.id);
         if (user) {
             if (user.level_id === req.params.level_id) {
+                if (!level.users) {
+                    level.users = [];
+                }
                 return res.status(200).send(level);
             }
             else {
@@ -61,6 +72,9 @@ module.exports = {
                     level_id: req.params.level_id
                 })
                 const level = await Level.findWithUsers(req.params.level_id);
+                if (!level.users) {
+                    level.users = [];
+                }
                 return res.status(200).send(level);
             }
         }
@@ -71,6 +85,9 @@ module.exports = {
                 destination: req.body.destination,
                 level_id: req.params.level_id
             })
+            if (!level.users) {
+                level.users = [];
+            }
             return res.status(200).send(level);
         }
     },
