@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Setup a default catch-all route that sends back a welcome message in JSON format."
-var models = require('./models');
+var models = require('./src/models');
 const port = parseInt(process.env.PORT, 10) || 3000;
 app.set('port', port);
 
@@ -26,6 +26,6 @@ models.sequelize.sync().then(function () {
     app.listen(port);
 });
 
-require('./routes')(app);
+require('./src/routes')(app);
 
 module.exports = app;

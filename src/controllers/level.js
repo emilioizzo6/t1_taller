@@ -8,36 +8,30 @@ const User = db.User;
 
 module.exports = {
     // level must be between 1 and infinity
-    find(req, res) {
+    async find(req, res) {
         if (!isValidLevel(req.params.level_id)) {
             return res.status(400).send({
                 error: `invalid level <${req.params.level_id}>`
             });
         }
-        return Level
-            .findWithUsers(req.params.level_id)
-            .then(level => {
-                if (!level) {
-                    Level
-                        .create({
-                            id: req.params.level_id
-                        })
-                        .then(level => {
-                            if (!level.dataValues.users) {
-                                level.dataValues.users = [];
-                            }
-                            res.status(200).send(level)
-                        })
-                    return;
-                }
-                if (!level.dataValues.users) {
-                    level.dataValues.users = [];
-                }
-                return res.status(200).send(level);
+        const level = await Level.findWithUsers(req.params.level_id);
+        if (!level) {
+            const level = await Level.create({
+                id: req.params.level_id
+            })
+            if (!level.dataValues?.users) {
+                level.dataValues.users = [];
             }
-            )
-            .catch(error => res.status(400).send(error));
+            res.status(200).send(level)
+                return;
+        }
+        const levelData = level.dataValues;
+        if (!levelData.users) {
+            levelData.users = [];
+        }
+        return res.status(200).send(level);
     },
+
     async call(req, res) {
         if (!isValidLevel(req.params.level_id)) {
             return res.status(400).send({
