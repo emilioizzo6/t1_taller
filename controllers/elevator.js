@@ -25,7 +25,12 @@ module.exports = {
                 current_weight: 0,
                 level: 1
             })
-            .then(elevator => res.status(201).send(elevator))
+            .then(elevator => {
+                if (!elevator.users) {
+                    elevator.users = [];
+                }
+                res.status(201).send(elevator)
+            })
             .catch(error => res.status(400).send(error));
     },
     // delete every user and elevator
@@ -97,7 +102,12 @@ module.exports = {
                     .update({
                         level: req.body.level
                     })
-                    .then(() => res.status(200).send(elevator))
+                    .then(() => {
+                        if (!elevator.users) {
+                            elevator.users = [];
+                        }
+                        res.status(200).send(elevator)
+                    })
                     .catch(error => res.status(400).send(error));
             })
             .catch(error => res.status(400).send(error));
@@ -125,7 +135,12 @@ module.exports = {
                     .update({
                         doors: req.body.doors
                     })
-                    .then(() => res.status(200).send(elevator))
+                    .then(() => {
+                        if (!elevator.users) {
+                            elevator.users = [];
+                        }
+                        res.status(200).send(elevator)
+                    })
                     .catch(error => res.status(400).send(error));
             }
             )
@@ -161,7 +176,7 @@ module.exports = {
         }
         else if (user.elevator_id) {
             return res.status(400).send({
-                error: `user ${req.params.user_id} already in elevator <${user.elevator_id}>`
+                error: `user ${req.params.user_id} already in elevator ${user.elevator_id}`
             });
         }
         else if (user.level_id !== elevator.level) {
@@ -180,6 +195,9 @@ module.exports = {
         await elevator.update({
             current_weight: elevator.current_weight + user.weight
         })
+        if (!elevator.users) {
+            elevator.users = [];
+        }
         res.status(200).send(elevator);
     },
 
@@ -226,12 +244,10 @@ module.exports = {
                                 elevator_id: null
                             })
                             .then(() => {
-                                return elevator
-                                    .update({
-                                        current_weight: elevator.current_weight - user.weight
-                                    })
-                                    .then(() => res.status(200).send(elevator))
-                                    .catch(error => res.status(400).send(error));
+                                if (!elevator.users) {
+                                    elevator.users = [];
+                                }
+                                res.status(200).send(elevator)
                             }
                             )
                             .catch(error => res.status(400).send(error));

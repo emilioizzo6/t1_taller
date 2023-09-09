@@ -64,7 +64,8 @@ module.exports = (sequelize, DataTypes) => {
       include: [{
         model: sequelize.models.User,
         as: 'users'
-      }]
+      }],
+      attributes: { exclude: ['current_weight'] }
     });
   }
   return Elevator;
